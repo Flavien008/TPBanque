@@ -23,13 +23,15 @@ public class BeanInit {
     private GestionnaireCompte gestionnaireCompte;
     
     public void init(@Observes @Initialized(ApplicationScoped.class) ServletContext context) {
-        CompteBancaire[] compte = new CompteBancaire[4];
-        compte[0] = new CompteBancaire("John Lennon", 150000);
-        compte[1] = new CompteBancaire("Paul McCartney", 950000);
-        compte[2] = new CompteBancaire("Ringo Starr", 20000);
-        compte[3] = new CompteBancaire("Georges Harrisson", 100000);
-        for (CompteBancaire c : compte) {
-            gestionnaireCompte.creerCompte(c);
+        if(gestionnaireCompte.compterCompter() == 0 ){
+            CompteBancaire[] compte = new CompteBancaire[4];
+            compte[0] = new CompteBancaire("John Lennon", 150000);
+            compte[1] = new CompteBancaire("Paul McCartney", 950000);
+            compte[2] = new CompteBancaire("Ringo Starr", 20000);
+            compte[3] = new CompteBancaire("Georges Harrisson", 100000);
+            for (CompteBancaire c : compte) {
+                gestionnaireCompte.creerCompte(c);
+            }
         }
     }
 }
