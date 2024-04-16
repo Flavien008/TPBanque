@@ -24,14 +24,14 @@
                     <br></br>
                     <h:panelGrid columns="3">
                         Id compte destinataire : 
-                        <h:inputText id="destination" size="3" value="#{transfert.idDestination}"
+                        <h:inputText id="destination" size="3" value="#{transfert.idDestination}" required="true"
                                      converterMessage="L'id est un nombre entier"/>
                         <h:message for="destination"/>   
                     </h:panelGrid>
                     <br></br>
                     <h:panelGrid columns="3">
                         Montant : 
-                        <h:inputText id="montant" size="3" value="#{transfert.montant}"
+                        <h:inputText id="montant" size="3" value="#{transfert.montant}" required="true"
                                      converterMessage="Montant est un nombre entier"/>
                         <h:message for="montant"/>   
                     </h:panelGrid>

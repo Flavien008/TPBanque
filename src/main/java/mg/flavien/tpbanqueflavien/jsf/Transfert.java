@@ -8,6 +8,7 @@ import jakarta.inject.Named;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import mg.flavien.tpbanqueflavien.entities.CompteBancaire;
+import mg.flavien.tpbanqueflavien.jsf.util.Util;
 import mg.flavien.tpbanqueflavien.service.GestionnaireCompte;
 
 /**
@@ -57,11 +58,25 @@ public class Transfert {
         boolean erreur = false;
         CompteBancaire source=bean.findById(idSource);
         CompteBancaire destinataire=bean.findById(idDestination);
+        if(source==null){
+            Util.messageErreur("Aucun compte avec cet id !\", \"Aucun compte avec cet id !\", \"form:source");
+            erreur=true;
+        }else if(source.getSolde()<montant){
+            Util.messageErreur("(Source) n'a pas assez de fond pour la transaction!");
+            erreur=true;
+        }else if(destinataire==null){
+            Util.messageErreur("Aucun compte avec cet id !\", \"Aucun compte avec cet id !\", \"form:destinataire");
+            erreur=true;
+        }else if(montant<0){
+            Util.messageErreur("Vous devez mettre un montant correct!");
+            erreur=true;
+        }
         String lien="listeComptes?faces-redirect=true";
         if(erreur){
             return null;
         }
         bean.transferer(source, destinataire, montant);
+        Util.addFlashInfoMessage("Le transfert de "+montant+"Euro de "+source.getNom()+" vers "+destinataire.getNom()+" est bien effectué!");
         return lien;
     }
     
