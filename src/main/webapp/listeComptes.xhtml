@@ -33,6 +33,13 @@
                                                  style="width:150px"/>
                                 </p:outputPanel>
                             </f:facet>
+                            <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                                <f:facet name="header">
+                                    <h:outputText value="Id"/>
+                                </f:facet>
+                                <h:outputText value="#{item.id}"/>
+                            </p:column>
+                            
                             <p:column sortBy="#{item.nom}" filterBy="#{item.nom}">
                                 <f:facet name="header">
                                     <h:outputText value="Nom"/>
