@@ -6,7 +6,6 @@ package mg.flavien.tpbanqueflavien.service;
 
 import jakarta.annotation.sql.DataSourceDefinition;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.enterprise.context.RequestScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
@@ -47,11 +46,11 @@ public class GestionnaireCompte {
         Query query = em.createQuery("select c from CompteBancaire as c");
         return query.getResultList();
     }
-    
+
     public int compterCompter() {
         return this.getAllComptes().size();
     }
-    
+
     public CompteBancaire findById(Long idCompte) {
         return em.find(CompteBancaire.class, idCompte);
     }
@@ -81,10 +80,10 @@ public class GestionnaireCompte {
         source.deposer(montant);
         update(source);
     }
-    
+
     @Transactional
     public void supprimerCompte(CompteBancaire compte) {
-        em.remove(compte);
+        em.remove(em.merge(compte));
     }
-    
+
 }
