@@ -69,4 +69,16 @@ public class GestionnaireCompte {
     public CompteBancaire update(CompteBancaire compteBancaire) {
         return em.merge(compteBancaire);
     }
+
+    @Transactional
+    public void retirerArgent(CompteBancaire source, int montant) {
+        source.retirer(montant);
+        update(source);
+    }
+
+    @Transactional
+    public void deposerArgent(CompteBancaire source, int montant) {
+        source.deposer(montant);
+        update(source);
+    }
 }
