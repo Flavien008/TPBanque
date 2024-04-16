@@ -10,6 +10,7 @@ import jakarta.inject.Named;
 import java.io.Serializable;
 import java.util.List;
 import mg.flavien.tpbanqueflavien.entities.CompteBancaire;
+import mg.flavien.tpbanqueflavien.jsf.util.Util;
 import mg.flavien.tpbanqueflavien.service.GestionnaireCompte;
 
 /**
@@ -32,5 +33,11 @@ public class ListeComptes implements Serializable {
             compteList = bean.getAllComptes();
         }
         return compteList;
+    }
+    
+     public String supprimerCompte(CompteBancaire compteBancaire) {
+        bean.supprimerCompte(compteBancaire);
+        Util.addFlashInfoMessage("Compte de " + compteBancaire.getNom() + " supprimé");
+        return "listeComptes?faces-redirect=true";
     }
 }

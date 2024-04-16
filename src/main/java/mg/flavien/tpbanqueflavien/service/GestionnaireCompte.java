@@ -81,4 +81,10 @@ public class GestionnaireCompte {
         source.deposer(montant);
         update(source);
     }
+    
+    @Transactional
+    public void supprimerCompte(CompteBancaire compte) {
+        em.remove(compte);
+    }
+    
 }

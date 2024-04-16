@@ -57,6 +57,9 @@
                                 <f:facet name="header">
                                     <h:outputText value=""/>
                                 </f:facet>
+                                <p:commandLink action="#{listeComptes.supprimerCompte(item)}">
+                                    <h:graphicImage name="images/delete.png" styleClass="icone" width="30" height="30"/>
+                                </p:commandLink>
                             </p:column>
                         </p:dataTable>
                     </h:form>
