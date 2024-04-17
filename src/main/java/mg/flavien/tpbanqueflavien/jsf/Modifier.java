@@ -59,6 +59,7 @@ public class Modifier implements Serializable {
 
     public void loadCompte() {
         this.compte = bean.findById(id);
+        this.nom = this.compte.getNom();
     }
 
     public CompteBancaire getCompteBancaire() {
