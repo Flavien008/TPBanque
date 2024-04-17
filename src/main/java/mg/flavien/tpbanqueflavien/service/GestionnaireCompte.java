@@ -12,6 +12,7 @@ import jakarta.persistence.Query;
 import jakarta.transaction.Transactional;
 import java.util.List;
 import mg.flavien.tpbanqueflavien.entities.CompteBancaire;
+import mg.flavien.tpbanqueflavien.entities.OperationBancaire;
 
 /**
  *
@@ -39,6 +40,7 @@ public class GestionnaireCompte {
 
     @Transactional
     public void creerCompte(CompteBancaire c) {
+        c.getOperations().add(new OperationBancaire("Création du compte", c.getSolde()));
         em.persist(c);
     }
 
@@ -71,12 +73,14 @@ public class GestionnaireCompte {
 
     @Transactional
     public void retirerArgent(CompteBancaire source, int montant) {
+        source.getOperations().add(new OperationBancaire("Retrait d'argent", (-1* montant)));
         source.retirer(montant);
         update(source);
     }
 
     @Transactional
     public void deposerArgent(CompteBancaire source, int montant) {
+        source.getOperations().add(new OperationBancaire("Depot d'argent",  montant));
         source.deposer(montant);
         update(source);
     }
@@ -88,6 +92,7 @@ public class GestionnaireCompte {
     
     @Transactional
    public void modifierNom(CompteBancaire compte,String nom){
+       compte.getOperations().add(new OperationBancaire("Modification compte", compte.getSolde()));
        compte.setNom(nom);
        update(compte);
    }
