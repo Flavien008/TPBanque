@@ -27,7 +27,7 @@ public class Operations implements Serializable{
     private GestionnaireCompte bean;
     
     public void loadCompteById(){
-        this.compte = bean.findById(this.idcompte);
+        this.compte = bean.findByIdWithOperations(this.idcompte);
     }
     
     public List<OperationBancaire> AllOperations(){

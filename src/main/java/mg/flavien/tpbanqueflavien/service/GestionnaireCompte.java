@@ -49,6 +49,12 @@ public class GestionnaireCompte {
         return query.getResultList();
     }
 
+    public CompteBancaire findByIdWithOperations(Long id) {
+        return em.createQuery("SELECT cb FROM CompteBancaire cb JOIN FETCH cb.operations WHERE cb.id = :id", CompteBancaire.class)
+                .setParameter("id", id)
+                .getSingleResult();
+    }
+
     public int compterCompter() {
         return this.getAllComptes().size();
     }
@@ -60,7 +66,7 @@ public class GestionnaireCompte {
     @Transactional
     public void transferer(CompteBancaire source, CompteBancaire destination,
             int montant) {
-        retirerArgent(source,montant);
+        retirerArgent(source, montant);
         deposerArgent(destination, montant);
     }
 
@@ -71,14 +77,14 @@ public class GestionnaireCompte {
 
     @Transactional
     public void retirerArgent(CompteBancaire source, int montant) {
-        source.getOperations().add(new OperationBancaire("Débit", (-1* montant)));
+        source.getOperations().add(new OperationBancaire("Débit", (-1 * montant)));
         source.retirer(montant);
         update(source);
     }
 
     @Transactional
     public void deposerArgent(CompteBancaire source, int montant) {
-        source.getOperations().add(new OperationBancaire("Crédit",  montant));
+        source.getOperations().add(new OperationBancaire("Crédit", montant));
         source.deposer(montant);
         update(source);
     }
@@ -87,11 +93,11 @@ public class GestionnaireCompte {
     public void supprimerCompte(CompteBancaire compte) {
         em.remove(em.merge(compte));
     }
-    
+
     @Transactional
-   public void modifierNom(CompteBancaire compte,String nom){
-       compte.getOperations().add(new OperationBancaire("Modification compte", compte.getSolde()));
-       compte.setNom(nom);
-       update(compte);
-   }
+    public void modifierNom(CompteBancaire compte, String nom) {
+        compte.getOperations().add(new OperationBancaire("Modification compte", compte.getSolde()));
+        compte.setNom(nom);
+        update(compte);
+    }
 }
