@@ -39,7 +39,7 @@
                                 <f:facet name="header">
                                     <h:outputText value="Id"/>
                                 </f:facet>
-                                <h:link value="#{item.id}" outcome="AjoutEtRetrait?id=#{item.id}"/>
+                                <h:outputText value="#{item.id}"/>
                             </p:column> 
 
                             <p:column sortBy="#{item.description}" filterBy="#{item.description}">
