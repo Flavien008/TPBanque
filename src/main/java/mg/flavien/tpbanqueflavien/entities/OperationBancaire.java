@@ -24,6 +24,7 @@ public class OperationBancaire implements Serializable {
     private Long id;
     private String description;
     private int montant;
+    private LocalDateTime dateOperation;
     
     public OperationBancaire() { }
                     
@@ -56,7 +57,6 @@ public class OperationBancaire implements Serializable {
     public void setMontant(int montant) {
         this.montant = montant;
     }
-    private LocalDateTime dateOperation;
 
     public Long getId() {
         return id;

@@ -60,10 +60,8 @@ public class GestionnaireCompte {
     @Transactional
     public void transferer(CompteBancaire source, CompteBancaire destination,
             int montant) {
-        source.retirer(montant);
-        destination.deposer(montant);
-        update(source);
-        update(destination);
+        retirerArgent(source,montant);
+        deposerArgent(destination, montant);
     }
 
     @Transactional
@@ -73,14 +71,14 @@ public class GestionnaireCompte {
 
     @Transactional
     public void retirerArgent(CompteBancaire source, int montant) {
-        source.getOperations().add(new OperationBancaire("Retrait d'argent", (-1* montant)));
+        source.getOperations().add(new OperationBancaire("Débit", (-1* montant)));
         source.retirer(montant);
         update(source);
     }
 
     @Transactional
     public void deposerArgent(CompteBancaire source, int montant) {
-        source.getOperations().add(new OperationBancaire("Depot d'argent",  montant));
+        source.getOperations().add(new OperationBancaire("Crédit",  montant));
         source.deposer(montant);
         update(source);
     }
